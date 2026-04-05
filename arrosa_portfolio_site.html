@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arrosa Qayyum — Data Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a1917;
+  --ink-light: #3d3b37;
+  --ink-muted: #7a7872;
+  --surface: #f7f4ef;
+  --surface-2: #efe9e0;
+  --accent: #2c6b5a;
+  --accent-light: #e4ede9;
+  --copper: #8c5e3c;
+  --copper-light: #f0e8df;
+  --border: rgba(26,25,23,0.12);
+  --border-strong: rgba(26,25,23,0.22);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 18px 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(247,244,239,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 0.5px solid var(--border);
+}
+
+.nav-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px; font-weight: 500;
+  color: var(--ink); letter-spacing: 0.01em;
+}
+
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a {
+  font-size: 13px; font-weight: 400;
+  color: var(--ink-muted); text-decoration: none;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--accent); }
+
+/* ─── HERO ─── */
+#hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 100px 48px 64px;
+  gap: 64px;
+}
+
+.hero-left { position: relative; }
+
+.hero-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; color: var(--accent);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.hero-tag::before {
+  content: '';
+  display: inline-block; width: 24px; height: 1px;
+  background: var(--accent);
+}
+
+.hero-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(52px, 6vw, 82px);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.hero-name em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--accent);
+}
+
+.hero-subtitle {
+  font-size: 16px; font-weight: 300;
+  color: var(--ink-light);
+  margin-bottom: 36px;
+  line-height: 1.5;
+  max-width: 400px;
+}
+
+.hero-links {
+  display: flex; gap: 12px; flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 11px 22px;
+  font-size: 13px; font-weight: 500;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: all 0.2s;
+  letter-spacing: 0.02em;
+}
+.btn-primary {
+  background: var(--ink); color: var(--surface);
+}
+.btn-primary:hover { background: var(--accent); }
+.btn-ghost {
+  background: transparent; color: var(--ink);
+  border: 0.5px solid var(--border-strong);
+}
+.btn-ghost:hover { background: var(--surface-2); border-color: var(--ink-muted); }
+
+.hero-right {
+  display: flex; flex-direction: column; gap: 16px;
+}
+
+.stat-card {
+  background: white;
+  border: 0.5px solid var(--border);
+  border-radius: 4px;
+  padding: 20px 24px;
+  display: flex; align-items: center; gap: 20px;
+  opacity: 0; transform: translateY(12px);
+  animation: fadeUp 0.5s ease forwards;
+}
+.stat-card:nth-child(1) { animation-delay: 0.2s; }
+.stat-card:nth-child(2) { animation-delay: 0.35s; }
+.stat-card:nth-child(3) { animation-delay: 0.5s; }
+.stat-card:nth-child(4) { animation-delay: 0.65s; }
+
+.stat-icon {
+  width: 40px; height: 40px;
+  background: var(--accent-light);
+  border-radius: 3px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+
+.stat-label { font-size: 12px; color: var(--ink-muted); margin-bottom: 2px; }
+.stat-value { font-size: 14px; font-weight: 500; color: var(--ink); }
+
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── SECTIONS ─── */
+section { padding: 96px 48px; }
+section:nth-child(even) { background: white; }
+
+.section-header {
+  display: flex; align-items: baseline; gap: 20px;
+  margin-bottom: 52px;
+}
+.section-number {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; color: var(--ink-muted);
+  letter-spacing: 0.08em;
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 38px; font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+/* ─── SKILLS ─── */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.skill-group {
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 4px;
+  padding: 20px;
+}
+.skill-group-name {
+  font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+.skill-tags {
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.skill-tag {
+  font-size: 12px;
+  background: white;
+  border: 0.5px solid var(--border-strong);
+  border-radius: 2px;
+  padding: 3px 9px;
+  color: var(--ink-light);
+}
+
+/* ─── PROJECTS ─── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 20px;
+}
+
+.project-card {
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 4px;
+  padding: 28px 28px 24px;
+  display: flex; flex-direction: column;
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+.project-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.3s;
+}
+.project-card:hover::before { transform: scaleX(1); }
+.project-card:hover { border-color: var(--border-strong); box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+
+.project-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 12px;
+}
+
+.project-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 10px;
+  line-height: 1.25;
+}
+
+.project-desc {
+  font-size: 13.5px; color: var(--ink-light);
+  line-height: 1.6; flex-grow: 1;
+  margin-bottom: 20px;
+}
+
+.project-stack {
+  display: flex; flex-wrap: wrap; gap: 5px;
+  margin-bottom: 20px;
+}
+.stack-item {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; color: var(--accent);
+  background: var(--accent-light);
+  border-radius: 2px; padding: 2px 7px;
+}
+
+.project-link {
+  font-size: 12px; font-weight: 500;
+  color: var(--ink); text-decoration: none;
+  display: inline-flex; align-items: center; gap: 5px;
+  border-bottom: 0.5px solid var(--border-strong);
+  padding-bottom: 1px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.project-link:hover { color: var(--accent); border-color: var(--accent); }
+
+/* ─── EXPERIENCE ─── */
+.experience-list { display: flex; flex-direction: column; gap: 0; }
+.exp-item {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 40px;
+  padding: 36px 0;
+  border-bottom: 0.5px solid var(--border);
+}
+.exp-item:last-child { border-bottom: none; }
+
+.exp-meta {}
+.exp-period {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; color: var(--ink-muted);
+  letter-spacing: 0.04em; margin-bottom: 4px;
+}
+.exp-org {
+  font-size: 13px; font-weight: 500; color: var(--accent);
+}
+
+.exp-role {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 500;
+  color: var(--ink); margin-bottom: 10px;
+}
+.exp-desc {
+  font-size: 13.5px; color: var(--ink-light);
+  line-height: 1.65;
+}
+.exp-bullets {
+  margin-top: 10px; padding-left: 16px;
+  font-size: 13.5px; color: var(--ink-light);
+  line-height: 1.8;
+}
+.exp-bullets li { margin-bottom: 3px; }
+
+/* ─── EDUCATION ─── */
+.edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.edu-card {
+  border: 0.5px solid var(--border);
+  border-radius: 4px; padding: 24px;
+  background: var(--surface);
+}
+.edu-degree {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px; font-weight: 500;
+  color: var(--ink); margin-bottom: 5px;
+}
+.edu-school {
+  font-size: 13px; color: var(--accent);
+  font-weight: 500; margin-bottom: 4px;
+}
+.edu-detail { font-size: 12px; color: var(--ink-muted); }
+
+/* ─── CERT STRIP ─── */
+.cert-strip {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  margin-top: 32px;
+}
+.cert-badge {
+  display: flex; align-items: center; gap: 8px;
+  background: white;
+  border: 0.5px solid var(--border-strong);
+  border-radius: 3px; padding: 9px 14px;
+  font-size: 12.5px; font-weight: 500; color: var(--ink-light);
+}
+.cert-badge .cert-dot {
+  width: 6px; height: 6px;
+  background: var(--accent); border-radius: 50%;
+}
+
+/* ─── CONTACT ─── */
+#contact {
+  background: var(--ink);
+  color: var(--surface);
+}
+#contact .section-title { color: var(--surface); }
+#contact .section-number { color: rgba(247,244,239,0.4); }
+
+.contact-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 48px; align-items: start;
+}
+.contact-note {
+  font-size: 17px; font-weight: 300;
+  color: rgba(247,244,239,0.7);
+  line-height: 1.65; max-width: 400px;
+}
+.contact-links { display: flex; flex-direction: column; gap: 12px; }
+.contact-item {
+  display: flex; align-items: center; gap: 14px;
+  color: rgba(247,244,239,0.8);
+  font-size: 14px;
+}
+.contact-item a {
+  color: rgba(247,244,239,0.8); text-decoration: none;
+  transition: color 0.2s;
+}
+.contact-item a:hover { color: #6ecfb0; }
+.contact-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(247,244,239,0.35);
+  width: 60px; flex-shrink: 0;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--ink); color: rgba(247,244,239,0.35);
+  border-top: 0.5px solid rgba(247,244,239,0.08);
+  padding: 24px 48px;
+  display: flex; justify-content: space-between;
+  font-size: 11px; font-family: 'DM Mono', monospace;
+  letter-spacing: 0.05em;
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  nav { padding: 16px 24px; }
+  .nav-links { display: none; }
+  #hero { grid-template-columns: 1fr; padding: 90px 24px 48px; gap: 40px; }
+  section { padding: 64px 24px; }
+  .exp-item { grid-template-columns: 1fr; gap: 8px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+  footer { flex-direction: column; gap: 8px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-name">Arrosa Qayyum</span>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Data Analyst &amp; Researcher</div>
+    <h1 class="hero-name">Arrosa<br><em>Qayyum</em></h1>
+    <p class="hero-subtitle">
+      Transforming complex datasets into decisions. Python, SQL, and Tableau practitioner with applied experience in education analytics, macroeconomic research, and program performance.
+    </p>
+    <div class="hero-links">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="https://github.com/Arrosa123" target="_blank" class="btn btn-ghost">GitHub</a>
+      <a href="mailto:arrosa@email.com" class="btn btn-ghost">Contact</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="stat-card">
+      <div class="stat-icon">📊</div>
+      <div>
+        <div class="stat-label">Core Stack</div>
+        <div class="stat-value">Python · SQL · Tableau</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">🎓</div>
+      <div>
+        <div class="stat-label">Credential</div>
+        <div class="stat-value">UC Davis Data Analytics Bootcamp</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">📍</div>
+      <div>
+        <div class="stat-label">Location</div>
+        <div class="stat-value">Woodland, CA · Open to Sacramento region</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">📡</div>
+      <div>
+        <div class="stat-label">Active Project</div>
+        <div class="stat-value">zambiamacro.ai — Sovereign signal engine</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header">
+    <span class="section-number">01</span>
+    <h2 class="section-title">Skills &amp; Tools</h2>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-group">
+      <div class="skill-group-name">Languages</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">SQL</span>
+        <span class="skill-tag">NumPy</span>
+        <span class="skill-tag">Pandas</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-name">Visualization</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Tableau</span>
+        <span class="skill-tag">Matplotlib</span>
+        <span class="skill-tag">Excel Charts</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-name">Databases</div>
+      <div class="skill-tags">
+        <span class="skill-tag">MySQL</span>
+        <span class="skill-tag">PostgreSQL</span>
+        <span class="skill-tag">Google Sheets</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-name">Methods</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Descriptive Stats</span>
+        <span class="skill-tag">Trend Analysis</span>
+        <span class="skill-tag">KPI Dashboards</span>
+        <span class="skill-tag">Data Cleaning</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-name">Tools</div>
+      <div class="skill-tags">
+        <span class="skill-tag">GitHub</span>
+        <span class="skill-tag">Jupyter</span>
+        <span class="skill-tag">VS Code</span>
+        <span class="skill-tag">Microsoft Office</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-name">Domain</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Education Analytics</span>
+        <span class="skill-tag">Labor Economics</span>
+        <span class="skill-tag">Program Evaluation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header">
+    <span class="section-number">02</span>
+    <h2 class="section-title">Projects</h2>
+  </div>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-tag">Data Integrity · Python / Pandas · UC Davis</div>
+      <h3 class="project-title">School District Data Audit &amp; Remediation</h3>
+      <p class="project-desc">
+        Investigated and corrected compromised academic data for a multi-school district. Identified anomalous test score records, replaced invalid entries with NaN using Pandas, and recalculated district-wide and school-level summaries — including pass rates by spending, school size, and school type — to restore data integrity before reporting.
+      </p>
+      <div class="project-stack">
+        <span class="stack-item">Python</span>
+        <span class="stack-item">Pandas</span>
+        <span class="stack-item">Jupyter Notebook</span>
+        <span class="stack-item">Data Validation</span>
+      </div>
+      <a href="https://github.com/Arrosa123/School_District_Analysis" target="_blank" class="project-link">View on GitHub →</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-tag">Government Data · Python Scripting · UC Davis</div>
+      <h3 class="project-title">Colorado Election Audit — Vote Count Automation</h3>
+      <p class="project-desc">
+        Built a Python script to audit a 369,711-record election dataset for a Colorado congressional district. Automated calculation of candidate vote totals and percentages, county-level turnout analysis, and winner determination. Script designed for reuse across any future election dataset with no code changes.
+      </p>
+      <div class="project-stack">
+        <span class="stack-item">Python</span>
+        <span class="stack-item">CSV Processing</span>
+        <span class="stack-item">Scripting</span>
+        <span class="stack-item">Government Data</span>
+      </div>
+      <a href="https://github.com/Arrosa123/Election_Analysis" target="_blank" class="project-link">View on GitHub →</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-tag">Time Series · Matplotlib · UC Davis</div>
+      <h3 class="project-title">Rideshare Fare Analysis — Urban vs Rural Markets</h3>
+      <p class="project-desc">
+        Analyzed rideshare performance data across urban, suburban, and rural city types from January–May 2019. Computed total rides, total drivers, average fares per ride and per driver by market segment. Built multi-line time series charts with Matplotlib to surface seasonal fare trends and inform market strategy recommendations.
+      </p>
+      <div class="project-stack">
+        <span class="stack-item">Python</span>
+        <span class="stack-item">Pandas</span>
+        <span class="stack-item">Matplotlib</span>
+        <span class="stack-item">Time Series</span>
+      </div>
+      <a href="https://github.com/Arrosa123/PyBer_Analysis" target="_blank" class="project-link">View on GitHub →</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-tag">Statistical Analysis · Excel · UC Davis</div>
+      <h3 class="project-title">Kickstarter Campaign Outcome Analysis</h3>
+      <p class="project-desc">
+        Analyzed 4,000+ Kickstarter campaigns to surface success patterns for theater plays. Built pivot tables segmenting outcomes by launch month and funding goal range. Used COUNTIFS() and percentage calculations to identify optimal launch windows and funding thresholds, visualized through line charts with trend interpretation.
+      </p>
+      <div class="project-stack">
+        <span class="stack-item">Excel</span>
+        <span class="stack-item">Pivot Tables</span>
+        <span class="stack-item">Statistical Analysis</span>
+        <span class="stack-item">Data Visualization</span>
+      </div>
+      <a href="https://github.com/Arrosa123/Kickstarter-analysis" target="_blank" class="project-link">View on GitHub →</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-tag">Education Analytics · Tableau · Operation iDream</div>
+      <h3 class="project-title">Student Performance KPI Dashboard</h3>
+      <p class="project-desc">
+        Designed and maintained an interactive Tableau dashboard tracking student outcomes and program KPIs for a nonprofit serving 450+ students in Zambia. Conducted data cleaning and transformation using Python and SQL; produced quarterly reports used by leadership for evidence-based curriculum and resource decisions.
+      </p>
+      <div class="project-stack">
+        <span class="stack-item">Tableau</span>
+        <span class="stack-item">Python / Pandas</span>
+        <span class="stack-item">SQL</span>
+        <span class="stack-item">Jupyter</span>
+      </div>
+      <a href="https://github.com/Arrosa123" target="_blank" class="project-link">View Profile →</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-tag">Macroeconomic Research · zambiamacro.ai</div>
+      <h3 class="project-title">Sovereign Signal Engine — Scope &amp; Logic Design</h3>
+      <p class="project-desc">
+        Contributing analyst for zambiamacro.ai, a macroeconomic signal research engine tracking Zambia's copper-hydrology-FX-debt transmission loop. Collaborated on indicator logic review and framework validation for the Energy-Debt Reserve Competition Ratio model, a composite index designed for sovereign stress assessment.
+      </p>
+      <div class="project-stack">
+        <span class="stack-item">Research Design</span>
+        <span class="stack-item">Indicator Frameworks</span>
+        <span class="stack-item">Economic Analysis</span>
+      </div>
+      <a href="https://zambiamacro.ai" target="_blank" class="project-link">Visit Project →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header">
+    <span class="section-number">03</span>
+    <h2 class="section-title">Experience</h2>
+  </div>
+  <div class="experience-list">
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-period">Jul 2021 – Present</div>
+        <div class="exp-org">Operation iDream</div>
+      </div>
+      <div>
+        <div class="exp-role">Data Analyst (Research Affiliate)</div>
+        <div class="exp-desc">Remote · Masaiti District, Zambia</div>
+        <ul class="exp-bullets">
+          <li>Built Tableau dashboards tracking KPIs for 450+ students across a 39-acre campus</li>
+          <li>Conducted data cleaning and transformation using Python (NumPy, Pandas) and SQL on multi-year datasets</li>
+          <li>Delivered quarterly data-driven reports informing educational strategy and resource allocation</li>
+          <li>Collaborated cross-functionally with program leadership to define and refine key performance indicators</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-period">Apr 2022 – Oct 2023</div>
+        <div class="exp-org">Woodland Joint Unified School District</div>
+      </div>
+      <div>
+        <div class="exp-role">Paraprofessional &amp; Office Coordinator</div>
+        <div class="exp-desc">Woodland, CA</div>
+        <ul class="exp-bullets">
+          <li>Managed documentation, scheduling, and inter-departmental coordination for K-12 instructional programs</li>
+          <li>Supported data-driven reporting for student services and resource tracking</li>
+          <li>Facilitated small group educational sessions, developing curriculum and tracking outcomes</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-period">Mar 2018 – Mar 2020</div>
+        <div class="exp-org">Arif's Painting Inc.</div>
+      </div>
+      <div>
+        <div class="exp-role">Office Manager</div>
+        <div class="exp-desc">Woodland, CA</div>
+        <ul class="exp-bullets">
+          <li>Managed operations, schedules, and project documentation for a growing small business</li>
+          <li>Implemented software tools for administrative workflows, reducing manual processing time</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-header">
+    <span class="section-number">04</span>
+    <h2 class="section-title">Education &amp; Credentials</h2>
+  </div>
+
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div class="edu-degree">B.S. Data Analytics &amp; AI</div>
+      <div class="edu-school">Capella University</div>
+      <div class="edu-detail">Minneapolis, MN · Expected June 2025</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-degree">B.S. Computer Science</div>
+      <div class="edu-school">University of the Punjab</div>
+      <div class="edu-detail">Lahore, Pakistan · Completed</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-degree">A.S. Natural Sciences &amp; Mathematics</div>
+      <div class="edu-school">Woodland Community College</div>
+      <div class="edu-detail">Woodland, CA · Completed</div>
+    </div>
+  </div>
+
+  <div class="cert-strip">
+    <div class="cert-badge"><span class="cert-dot"></span> UC Davis Data Analytics Bootcamp Certificate</div>
+    <div class="cert-badge"><span class="cert-dot"></span> Google Data Analytics Professional Certificate</div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header">
+    <span class="section-number">05</span>
+    <h2 class="section-title">Get in Touch</h2>
+  </div>
+  <div class="contact-grid">
+    <p class="contact-note">
+      Open to data analyst, research analyst, and public sector data roles in the Sacramento region and beyond. Available for immediate discussion.
+    </p>
+    <div class="contact-links">
+      <div class="contact-item">
+        <span class="contact-label">Email</span>
+        <a href="mailto:arrosa@email.com">arrosa@email.com</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">LinkedIn</span>
+        <a href="https://linkedin.com/in/YOUR_HANDLE" target="_blank">linkedin.com/in/YOUR_HANDLE</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">GitHub</span>
+        <a href="https://github.com/Arrosa123" target="_blank">github.com/Arrosa123</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">Location</span>
+        <span>Woodland, CA</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Arrosa Qayyum · Data Analyst</span>
+  <span>arrosa.github.io</span>
+</footer>
+
+</body>
+</html>
